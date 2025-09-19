@@ -40,5 +40,10 @@ namespace WindowHelp
             WindowHelper.ActivateWindow(wi.Handle);
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = ImageHelper.GetWindowImage(((ListItem)comboBox1.SelectedItem).WindowInfos);
+        }
     }
 }
