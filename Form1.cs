@@ -45,5 +45,38 @@ namespace WindowHelp
         {
             pictureBox1.Image = ImageHelper.GetWindowImage(((ListItem)comboBox1.SelectedItem).WindowInfos);
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image.Save("D:\\1.png");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            richTextBox1.AppendText("点击了");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Bitmap dbmp = new Bitmap(75, 23);
+            Graphics g = Graphics.FromImage(dbmp);
+            g.DrawImage(pictureBox1.Image, new Rectangle(0, 0, 68, 24), 460, 90, 68, 24, GraphicsUnit.Pixel);
+            pictureBox1.Image = dbmp;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Bitmap bmpa = new Bitmap("D:\\1.png");
+            pictureBox2.Image = bmpa;
+            Bitmap bmpb = new Bitmap(68, 24);
+            Graphics g = Graphics.FromImage(bmpb);
+            g.DrawImage(ImageHelper.GetWindowImage(((ListItem)comboBox1.SelectedItem).WindowInfos), new Rectangle(0,0,68,24),460,90,68,24, GraphicsUnit.Pixel);
+            pictureBox1.Image = bmpb;
+            SimilarImageHelper.SourceImg = bmpa;
+            string sa = SimilarImageHelper.GetHash();
+            SimilarImageHelper.SourceImg = bmpb;
+            string sb = SimilarImageHelper.GetHash();
+            label2.Text = "比对结果："+(SimilarImageHelper.CalcSimilarDegree(sa,sb)<5);
+        }
     }
 }
