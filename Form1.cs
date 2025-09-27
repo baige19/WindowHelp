@@ -60,7 +60,7 @@ namespace WindowHelp
         {
             Bitmap dbmp = new Bitmap(75, 23);
             Graphics g = Graphics.FromImage(dbmp);
-            g.DrawImage(pictureBox1.Image, new Rectangle(0, 0, 68, 24), 460, 90, 68, 24, GraphicsUnit.Pixel);
+            g.DrawImage(pictureBox1.Image, new Rectangle(0, 0, 68, 24), 0, 0, 384, 216, GraphicsUnit.Pixel);
             pictureBox1.Image = dbmp;
         }
 
@@ -68,15 +68,45 @@ namespace WindowHelp
         {
             Bitmap bmpa = new Bitmap("D:\\1.png");
             pictureBox2.Image = bmpa;
-            Bitmap bmpb = new Bitmap(68, 24);
+            Bitmap bmpb = new Bitmap(75, 23);
             Graphics g = Graphics.FromImage(bmpb);
-            g.DrawImage(ImageHelper.GetWindowImage(((ListItem)comboBox1.SelectedItem).WindowInfos), new Rectangle(0,0,68,24),460,90,68,24, GraphicsUnit.Pixel);
+            g.DrawImage(ImageHelper.GetWindowImage(((ListItem)comboBox1.SelectedItem).WindowInfos), new Rectangle(0,0,68,24), 0, 0, 384, 216, GraphicsUnit.Pixel);
             pictureBox1.Image = bmpb;
             SimilarImageHelper.SourceImg = bmpa;
             string sa = SimilarImageHelper.GetHash();
             SimilarImageHelper.SourceImg = bmpb;
             string sb = SimilarImageHelper.GetHash();
             label2.Text = "比对结果："+(SimilarImageHelper.CalcSimilarDegree(sa,sb)<5);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            WindowInfo wi = ((ListItem)comboBox1.SelectedItem).WindowInfos;
+            int x = 200;
+            int y = 200;
+            InputHelper.MouseLeftDown(wi.Handle, x, y);
+            InputHelper.MouseLeftUp(wi.Handle, x, y);
+            InputHelper.KeyPress(wi.Handle, (byte)Keys.A);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            richTextBox1.AppendText($"\r\n键盘按下{e.KeyCode}");
+        }
+
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            richTextBox1.AppendText($"\r\n鼠标按下位置{e.Location}");
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            richTextBox1.AppendText($"\r\n键盘抬起{e.KeyCode}");
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            richTextBox1.AppendText($"\r\n鼠标抬起位置{e.Location}");
         }
     }
 }
